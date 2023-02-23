@@ -1,11 +1,11 @@
 
 class Personaje:
     
-    #Atributos del personaje
-    especie= "humano"
-    nombre= "Lalo fenix"
-    altuta= 1.90
-    
+    def __init__(self, esp,nom,alt):   
+        self.especie= esp
+        self.nombre= nom
+        self.altura= alt
+        
     #Metodos personajes
     
     def correr(self,status):
@@ -20,7 +20,7 @@ class Personaje:
     def RecargaArma(self, municiones):
         cargador = 5
         cargador = cargador + municiones
-        print("El arma tiene ahora" + cargador + "balas")
+        print("El arma tiene ahora" + str(cargador) + "balas")
          
          
          
