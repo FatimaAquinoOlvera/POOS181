@@ -21,23 +21,29 @@ cargaV= int (input ("Cuantas balas se recargaran al villano "))
 Heroe = Personaje(espH,nomH,altH)
 villano = Personaje(espV,nomV,altV)
 
+#Ejemplo del uso de set
+Heroe.setNombre("pepe pecas")
+
 #4. Acceder a sus atriutos y metodos de cada objeto
 
 print("")
 print("##Atributos y Metodos de heroe")
-print("El personaje pertenece a la raza: "+ Heroe.especie)
-print("Se llama: "+ Heroe.nombre)
-print("El personaje mide: "+ str(Heroe.altura) + "metros")
+print("El personaje pertenece a la raza: "+ Heroe.getEspecie())
+print("Se llama: "+ Heroe.getNombre())
+print("El personaje mide: "+ str(Heroe.getAltura()) + "metros")
 
 Heroe.correr(True)
 Heroe.LanazarGranada()
 Heroe.RecargaArma(cargaH)
 
+#Ejemplo de lo que no se puede hacer
+#Heroe.__pensar()
+
 print("")
 print("##Atributos y Metodos de villano")
-print("El personaje pertenece a la raza: "+ villano.especie)
-print("Se llama: "+ villano.nombre)
-print("El personaje mide: "+ str(villano.altura) + "metros")
+print("El personaje pertenece a la raza: "+ villano.getEspecie())
+print("Se llama: "+ villano.getNombre())
+print("El personaje mide: "+ str(villano.getAltura()) + "metros")
 
 
 villano.correr(True)
