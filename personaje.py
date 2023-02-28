@@ -23,7 +23,7 @@ class Personaje:
         print("El arma tiene ahora" + str(cargador) + "balas")
         
     #Ejemplo de metodo privado
-    #def __pensar(self):
+    #de __pensar(self):
         #print ("Estoy pensando...")
         
     #Declaramos los getters y setters de los atributos en privado
