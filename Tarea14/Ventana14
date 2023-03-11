@@ -1,0 +1,77 @@
+from tkinter import *
+from tkinter import messagebox
+
+class Cuenta:
+    def __init__(self, noCuenta, titular, edad, saldo):
+        self.noCuenta = noCuenta
+        self.titular = titular
+        self.edad = edad
+        self.saldo = saldo
+        
+    def consultarSaldo(self):
+        return self.saldo
+        
+    def depositar(self, cuentaDestino, cantidad):
+        if cantidad <= self.saldo:
+            self.saldo -= cantidad
+            cuentaDestino.saldo += cantidad
+        else:
+            messagebox.showerror("Error", "No tiene suficiente saldo para realizar esta operación.")
+            
+class CajaPopular:
+    def __init__(self):
+        self.cuentas = {}
+        
+    def consultarSaldo(self, noCuenta):
+        cuenta = self.cuentas.get(noCuenta)
+        if cuenta:
+            return cuenta.consultarSaldo()
+        else:
+            messagebox.showerror("Error", "No se encontró la cuenta especificada.")
+        
+    def ingresarEfectivo(self, noCuenta, cantidad):
+        cuenta = self.cuentas.get(noCuenta)
+        if cuenta:
+            cuenta.saldo += cantidad
+            messagebox.showinfo("Éxito", "Se ingresó el efectivo correctamente.")
+        else:
+            messagebox.showerror("Error", "No se encontró la cuenta especificada.")
+            
+    def retirarEfectivo(self, noCuenta, cantidad):
+        cuenta = self.cuentas.get(noCuenta)
+        if cuenta:
+            if cantidad <= cuenta.saldo:
+                cuenta.saldo -= cantidad
+                messagebox.showinfo("Éxito", "Se retiró el efectivo correctamente.")
+            else:
+                messagebox.showerror("Error", "No tiene suficiente saldo para realizar esta operación.")
+        else:
+            messagebox.showerror("Error", "No se encontró la cuenta especificada.")
+
+class Interfaz:
+    def __init__(self):
+        self.root = Tk()
+        self.root.title("Cuentas y Caja Popular")
+        
+        # Etiquetas
+        Label(self.root, text="No. Cuenta:").grid(row=0, column=0, padx=5, pady=5)
+        Label(self.root, text="Titular:").grid(row=1, column=0, padx=5, pady=5)
+        Label(self.root, text="Edad:").grid(row=2, column=0, padx=5, pady=5)
+        Label(self.root, text="Saldo:").grid(row=3, column=0, padx=5, pady=5)
+        
+        # Campos de texto
+        self.noCuentaEntry = Entry(self.root)
+        self.noCuentaEntry.grid(row=0, column=1, padx=5, pady=5)
+        self.titularEntry = Entry(self.root)
+        self.titularEntry.grid(row=1, column=1, padx=5, pady=5)
+        self.edadEntry = Entry(self.root)
+        self.edadEntry.grid(row=2, column=1, padx=5, pady=5)
+        self.saldoEntry = Entry(self.root)
+        self.saldoEntry.grid(row=3, column=1, padx=5, pady=5)
+        
+        # Botones
+        Button(self.root, text="Crear cuenta", command=self.crearCuenta).grid(row=4, column=0, padx=5, pady=5)
+        Button()
+        
+        
+    Ventana.mainloop()
