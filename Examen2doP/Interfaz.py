@@ -4,7 +4,7 @@ from tkinter import messagebox
 from Logica import Logica
 
 class Interfaz:
-    def _init_(self, ventana):
+    def __init__(self, ventana):
         self.ventana = ventana
         #Se inician los valores y se le da un titulo a la ventana
         ventana.title("Interfaz de usuario")
@@ -49,7 +49,7 @@ class Interfaz:
         self.carrera.pack()
 
         #Boton para generar la matricula
-        self.open_button = Button(ventana, text="Gnerar", command=self.generarMatricula)
+        self.open_button = Button(ventana, text="Generar", command=self.generarMatricula)
         self.open_button.pack()
 
     def generarMatricula(self):
@@ -63,7 +63,7 @@ class Interfaz:
 
 
 #Sentencia que carga la ventana principal
-if _name_ == '_main_':
+if __name__ == '__main__':
     #Se crea la ventana principal
     Principal = Tk()
     #Se crea la instancia de la clase Interfaz
