@@ -56,8 +56,31 @@ class controladorBD:
         #Enviamos la contraseña encriptada
         return conHa
             
+        #Metodo para buscar 1 usuario 
+    def consultarUsuario(self,id): 
+        #1. Preparar Conexion 
+        conx= self.conexionBD()
+        
+        #2. Verificar si id contiene algo
+        if(id == ""):
+            messagebox.showwarning("Cuidado","Id vacio escribe algo valido")  
+            conx.close()     
             
-            
+        else:
+            try:
+                #3. Preparar cursor y el query
+                cursor=conx.cursor()
+                selectQry= "select * from TBRegistrados where id="+id
+                
+                #4. Ejecutar y guardar la consulta
+                cursor.execute(selectQry)
+                rsUsuario= cursor.fetchall()
+                conx.close()
+                
+                return rsUsuario
+                        
+            except sqlite3.OperationalError:
+                print("Error consulta")    
             
             
             
