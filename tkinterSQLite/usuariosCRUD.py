@@ -3,6 +3,7 @@ from tkinter import ttk
 import tkinter as tk
 from tkinter import messagebox
 from controladorBD import * #1. Presentamos los archivos vontrolador vista
+from tkinter.messagebox import showinfo  #Tabla 
 
 #2. Creamos un objeto de la clase controladorBD
 controlador= controladorBD()
@@ -25,6 +26,28 @@ def ejecutarSelectU():
     else:
         messagebox.showinfo("Usuario no encontrado","Usuario no existe en la base de datos")
         
+# Practica 17
+# Función para mostrar todos los usuarios en el cuadro de texto
+def mostrarUsuarios():
+    # 1. Obtener los datos de la tabla
+    usuarios = controlador.obtenerUsuarios()
+
+    # 2. Crear objeto Treeview
+    tablaUsuarios = ttk.Treeview(pestana3, columns=("nombre", "correo", "contra"), show='headings')
+    tablaUsuarios.column("nombre", width=100, minwidth=100, anchor=CENTER)
+    tablaUsuarios.column("correo", width=100, minwidth=100, anchor=CENTER)
+    tablaUsuarios.column("contra", width=100, minwidth=100, anchor=CENTER)
+
+    tablaUsuarios.heading("nombre", text="Nombre")
+    tablaUsuarios.heading("correo", text="Correo")
+    tablaUsuarios.heading("contra", text="Contraseña")
+
+    # 3. Insertar datos en la tabla
+    for usuario in usuarios:
+        tablaUsuarios.insert("", END, values=(usuario[1], usuario[2], usuario[3]))
+
+    tablaUsuarios.pack(fill=BOTH, expand=True)
+       
         
 
 Ventana=Tk()
@@ -70,6 +93,15 @@ subBus= Label(pestana2, text="Encontrado",fg='blue', font=("Modern", 18)).pack()
 textEnc=tk.Text(pestana2, height=5,width=52)
 textEnc.pack()
 
+# Practica 17
+# Pestaña 3: Consultar Usuarios
+titulo3 = Label(pestana3, text="Consultar usuarios", fg='purple', font=("Modern", 18)).pack()
+
+# Agregar botón para mostrar todos los usuarios
+btnMostrarTodos = Button(pestana3, text="Mostrar todos los usuarios", command=mostrarUsuarios)
+btnMostrarTodos.pack()
+
+panel.add(pestana3, text='Todos los usuarios')
 
 panel.add(pestana1, text='Formulario de usuario')
 panel.add(pestana2, text='Buscar usuario')

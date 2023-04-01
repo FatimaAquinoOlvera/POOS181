@@ -56,7 +56,7 @@ class controladorBD:
         #Enviamos la contraseña encriptada
         return conHa
             
-        #Metodo para buscar 1 usuario 
+    # Metodo para buscar 1 usuario 
     def consultarUsuario(self,id): 
         #1. Preparar Conexion 
         conx= self.conexionBD()
@@ -82,7 +82,24 @@ class controladorBD:
             except sqlite3.OperationalError:
                 print("Error consulta")    
             
-            
+    # Practica 17
+    # Método para obtener todos los usuarios de la tabla Registrados
+    def obtenerUsuarios(self):
+        # 1. Usamos conexion
+        conx = self.conexionBD()
+
+        # 2. Preparar el cursor y la consulta SQL
+        cursor = conx.cursor()
+        qrSelect = "SELECT * FROM TBRegistrados"
+
+        # 3. Ejecutar la consulta y obtener los usuarios
+        cursor.execute(qrSelect)
+        usuarios = cursor.fetchall()
+
+        # 4. Cerrar la conexión y devolver los usuarios
+        conx.close()
+        return usuarios
+     
             
         
     
