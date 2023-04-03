@@ -25,7 +25,7 @@ def ejecutarSelectU():
         
     else:
         messagebox.showinfo("Usuario no encontrado","Usuario no existe en la base de datos")
-        
+          
 # Practica 17
 # Función para mostrar todos los usuarios en el cuadro de texto
 def mostrarUsuarios():
@@ -33,23 +33,23 @@ def mostrarUsuarios():
     usuarios = controlador.obtenerUsuarios()
 
     # 2. Crear objeto Treeview
-    tablaUsuarios = ttk.Treeview(pestana3, columns=("nombre", "correo", "contra"), show='headings')
+    tablaUsuarios = ttk.Treeview(pestana3, columns=("id","nombre", "correo", "contra"), show='headings')
+    tablaUsuarios.column("id", width=50, minwidth=100, anchor=CENTER)
     tablaUsuarios.column("nombre", width=100, minwidth=100, anchor=CENTER)
     tablaUsuarios.column("correo", width=100, minwidth=100, anchor=CENTER)
     tablaUsuarios.column("contra", width=100, minwidth=100, anchor=CENTER)
 
+    tablaUsuarios.heading("id", text="Id")
     tablaUsuarios.heading("nombre", text="Nombre")
     tablaUsuarios.heading("correo", text="Correo")
     tablaUsuarios.heading("contra", text="Contraseña")
 
     # 3. Insertar datos en la tabla
     for usuario in usuarios:
-        tablaUsuarios.insert("", END, values=(usuario[1], usuario[2], usuario[3]))
-
+        tablaUsuarios.insert("", END, values=(usuario[0], usuario[1], usuario[2], usuario[3]))
+  
     tablaUsuarios.pack(fill=BOTH, expand=True)
-       
         
-
 Ventana=Tk()
 Ventana.title("CRUD de usuario")
 Ventana.geometry("500x300") 
@@ -100,8 +100,6 @@ titulo3 = Label(pestana3, text="Consultar usuarios", fg='purple', font=("Modern"
 # Agregar botón para mostrar todos los usuarios
 btnMostrarTodos = Button(pestana3, text="Mostrar todos los usuarios", command=mostrarUsuarios)
 btnMostrarTodos.pack()
-
-panel.add(pestana3, text='Todos los usuarios')
 
 panel.add(pestana1, text='Formulario de usuario')
 panel.add(pestana2, text='Buscar usuario')
