@@ -38,7 +38,7 @@ class controladorBD:
             #4. Ejecutar Insert y cerramos Conexion
             cursor.execute(qrInsert,datos)
             conx.commit() #Envia cambios a la base de datos.
-            conx.close
+            conx.close()
             messagebox.showinfo("Exito","Usuario Guardado")
             
     # Metodo para encriptar contraseñas      
@@ -100,6 +100,49 @@ class controladorBD:
         conx.close()
         return usuarios
      
+    # Practica 18
+    # Método para Actualizar Usuario
+    def actualizarUsuario(self, id, nombre, correo, contra):
+            try:
+                conexion = self.conexionBD()
+                cursor = conexion.cursor()
+                salt = bcrypt.gensalt()
+                contra = bcrypt.hashpw(contra.encode('utf-8'), salt)
+                cursor.execute('''UPDATE TBRegistrados SET nombre=?, correo=?, contra=? WHERE id=?''', (nombre, correo, contra, id))
+                conexion.commit()
+                messagebox.showinfo("Actualización", "El usuario se ha actualizado correctamente")
+            except sqlite3.Error as error:
+                messagebox.showerror("Error en la actualización", "Error en la base de datos: " + str(error))
+            finally:
+                if conexion:
+                    conexion.close()
+                    
+    # Método para Eliminar Usuario
+    def eliminarUsuario(self, id):
+        try:
+            conexion = self.conexionBD()
+            cursor = conexion.cursor()
             
-        
-    
+            # Obtener información del usuario a eliminar
+            cursor.execute('''SELECT nombre, correo FROM TBRegistrados WHERE id=?''', (id,))
+            usuario = cursor.fetchone()
+            
+            # Confirmar la eliminación con el usuario
+            confirmacion = messagebox.askyesno("Confirmación", f"¿Está seguro de eliminar al usuario '{usuario[0]}' con correo '{usuario[1]}'?")
+            
+            if confirmacion:
+                # Eliminar al usuario
+                cursor.execute('''DELETE FROM TBRegistrados WHERE id=?''', (id,))
+                conexion.commit()
+                messagebox.showinfo("Eliminación", "El usuario se ha eliminado correctamente")
+            else:
+                messagebox.showinfo("Eliminación cancelada", "La eliminación del usuario ha sido cancelada.")
+                
+        except sqlite3.Error as error:
+            messagebox.showerror("Error en la eliminación", "Error en la base de datos: " + str(error))
+        finally:
+            if conexion:
+                conexion.close()
+                
+                
+                
